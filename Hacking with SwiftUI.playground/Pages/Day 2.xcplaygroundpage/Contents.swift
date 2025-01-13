@@ -1,7 +1,7 @@
-//: [Previous](@previous)
-
 import Foundation
 
-var greeting = "Hello, playground"
+// Checkpoint - Celsuis to Faranheit convertor
 
-//: [Next](@next)
+let celsius = 15.0
+let faranheit = (celsius * 9) / 5 + 32
+print("The temperature of \(celsius)° Celsius, is equivalent of \(faranheit)° degrees Faranheit.")
