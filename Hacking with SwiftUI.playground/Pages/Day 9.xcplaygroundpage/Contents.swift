@@ -249,3 +249,125 @@ print()
 
 // How to accept functions as parameters - video 3
 
+// Here’s a function that generates an array of integers by repeating a function a certain number of times:
+
+func makeArray(size: Int, using generator: () -> Int) -> [Int] {
+    var numbers = [Int]()
+
+    for _ in 0..<size {
+        let newNumber = generator()
+        numbers.append(newNumber)
+    }
+
+    return numbers
+}
+
+
+let rolls = makeArray(size: 5) { Int.random(in: 1...10) }
+print(rolls)
+
+/*
+ Let’s break that down…
+
+    1. The function is called makeArray(). It takes two parameters, one of which is the number of integers we want, and also returns an array of integers.
+    2. The second parameter is a function. This accepts no parameters itself, but will return one integer every time it’s called.
+    3. Inside makeArray() we create a new empty array of integers, then loop as many times as requested.
+    4. Each time the loop goes around we call the generator function that was passed in as a parameter. This will return one new integer, so we put that into the numbers array.
+    5. Finally the finished array is returned.
+ 
+ The body of the makeArray() is mostly straightforward: repeatedly call a function to generate an integer, adding each value to an array, then send it all back.
+
+ The complex part is the very first line:
+ */
+
+
+
+// There’s one last thing before we move on: you can make your function accept multiple function parameters if you want, in which case you can specify multiple trailing closures. The syntax here is very common in SwiftUI, so it’s important to at least show you a taste of it here.
+
+// To demonstrate this here’s a function that accepts three function parameters, each of which accept no parameters and return nothing:
+
+func doImportantWork(first: () -> Void, second: () -> Void, third: () -> Void) {
+    print("About to start first work")
+    first()
+    print("About to start second work")
+    second()
+    print("About to start third work")
+    third()
+    print("Done!")
+}
+
+
+doImportantWork() {
+    print("a")
+} second: {
+    print("b")
+} third: {
+    print("c")
+}
+
+
+/*
+ 
+ Having three trailing closures is not as uncommon as you might expect. For example, making a section of content in SwiftUI is done with three trailing closures: one for the content itself, one for a head to be put above, and one for a footer to be put below.
+ */
+
+
+
+// -----------------------------------------------------------------------------------------------------
+print()
+
+
+// Summary : Closures
+
+    /*
+     
+     We’ve covered a lot about closures in the previous chapters, so let’s recap:
+
+     - You can copy functions in Swift, and they work the same as the original except they lose their external parameter names.
+     - All functions have types, just like other data types. This includes the parameters they receive along with their return type, which might be Void – also known as “nothing”.
+     - You can create closures directly by assigning to a constant or variable.
+     - Closures that accept parameters or return a value must declare this inside their braces, followed by the keyword in.
+     - Functions are able to accept other functions as parameters. They must declare up front exactly what data those functions must use, and Swift will ensure the rules are followed.
+     - In this situation, instead of passing a dedicated function you can also pass a closure – you can make one directly. Swift allows both approaches to work.
+     - When passing a closure as a function parameter, you don’t need to explicitly write out the types inside your closure if Swift can figure it out automatically. The same is true for the return value – if Swift can figure it out, you don’t need to specify it.
+     - If one or more of a function’s final parameters are functions, you can use trailing closure syntax.
+     - You can also use shorthand parameter names such as $0 and $1, but I would recommend doing that only under some conditions.
+     - You can make your own functions that accept functions as parameters, although in practice it’s much more important to know how to use them than how to create them.
+
+     */
+
+// -----------------------------------------------------------------------------------------------------
+print()
+
+
+// Checkpoint5: Closures and chaining functional code
+
+/*
+ You’ve already met sorted(), filter(), map(), so I’d like you to put them together in a chain – call one, then the other, then the other back to back without using temporary variables.
+
+ Your input is this:
+ 
+ */
+
+let luckyNumbers = [7, 4, 38, 21, 16, 15, 12, 33, 31, 49]
+
+/*
+ Your job is to:
+
+    1. Filter out any numbers that are even
+    2. Sort the array in ascending order
+    3. Map them to strings in the format “7 is a lucky number”
+    4. Print the resulting array, one item per line
+ 
+ So, your output should be as follows:
+ 7 is a lucky number
+ 15 is a lucky number
+ 21 is a lucky number
+ 31 is a lucky number
+ 33 is a lucky number
+ 49 is a lucky number
+ */
+
+
+
+luckyNumbers.filter{ !$0.isMultiple(of:2) }.sorted().map{ "\($0) is a lucky number"}.forEach{ print($0) }
