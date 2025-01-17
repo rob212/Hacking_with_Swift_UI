@@ -1,4 +1,4 @@
-import Foundations
+import Foundation
 
 // Structs - video 1
 
