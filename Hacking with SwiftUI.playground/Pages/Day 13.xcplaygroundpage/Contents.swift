@@ -435,4 +435,51 @@ print()
 print()
 // Checkpoint 8: Make a protocol that desctibes a building
 
+/*
+ Your challenge is this: make a protocol that describes a building, adding various properties and methods, then create two structs, House and Office, that conform to it. Your protocol should require the following:
 
+    1. A property storing how many rooms it has.
+    2. A property storing the cost as an integer (e.g. 500,000 for a building costing $500,000.)
+    3. A property storing the name of the estate agent responsible for selling the building.
+    4. A method for printing the sales summary of the building, describing what it is along with its other properties.
+ 
+ Create two structs, House and Office, that conform to it.
+ */
+
+protocol Building {
+    var rooms: Int { get }
+    var cost: Int { get set }
+    var estateAgent: String { get set }
+    func salesSummary() -> Void
+}
+
+struct House: Building {
+    let rooms: Int
+    var cost: Int
+    var estateAgent: String
+    
+    func salesSummary() -> Void {
+         print("This property is a home with \(rooms) rooms, listed with \(estateAgent) at a price of £\(cost)")
+    }
+}
+
+struct Office: Building {
+    var rooms: Int
+    var cost: Int
+    var estateAgent: String
+    
+    func salesSummary() -> Void {
+         print("This property is an office with \(rooms) rooms, listed with \(estateAgent) at a price of £\(cost)")
+    }
+}
+
+
+let bungalow = House(rooms: 4, cost: 360_00, estateAgent: "Baynes")
+bungalow.salesSummary()
+
+var appleton = Office(rooms: 200, cost: 4_000_000, estateAgent: "Lloyds")
+appleton.salesSummary()
+appleton.cost = 6_000_000
+appleton.salesSummary()
+appleton.rooms = 201
+appleton.salesSummary()
